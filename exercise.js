@@ -1,8 +1,12 @@
 const capitalize = (str) => {
+    if(typeof str !== 'string') throw new Error(`${str} is not a string.`)
+    if(str.length === 0) throw new Error('Ivalid input: Empty string')
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 const reverseString = (str) => {
+    if(typeof str !== 'string') throw new Error(`${str} is not a string.`)
+    if(str.length === 0) throw new Error('Ivalid input: Empty string')
     return str.split('').reverse().join('');
 }
 
@@ -40,13 +44,16 @@ const ceasarCipher = (str, key) => {
 }
 
 const analyzeArray = (arr) => {
+    const numbers = arr.filter(element => typeof element === 'number'); 
+    if (numbers.length === 0) { 
+        return { average: NaN, min: NaN, max: NaN, length: arr.length };
+    }
     const obj = {};
     let average = arr.reduce((prev, curr) => prev + curr, 0)
-    obj[average] = average / arr.length;
-    obj[min] = Math.min(arr);
-    obj[max] = Math.max(arr);
-    obj[length] = arr.length;
+    obj['average'] = Math.round(average / arr.length);
+    obj['min'] = Math.min(...arr)
+    obj['max'] = Math.max(...arr);
+    obj['length'] = arr.length;
     return obj;
 }
-
 module.exports = { capitalize, reverseString, calculator, ceasarCipher, analyzeArray }
